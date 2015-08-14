@@ -18,42 +18,9 @@
     </head>
     <body>
 
-        <!-- Split btn dropdowns -->
+        <!-- Single button - no aria attributes -->
         <div class="btn-group">
-          <button type="button" class="btn btn-danger">Action</button>
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </div>
-
-        <!-- nested btn groups with dropdown -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-default">1</button>
-          <button type="button" class="btn btn-default">2</button>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Dropdown link</a></li>
-              <li><a href="#">Dropdown link</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Single button -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             Action <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
@@ -65,7 +32,25 @@
           </ul>
         </div>
 
+        <!-- Single button - no role on menu -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+
         <div id="qunit"></div>
-        <ol id="bootlint"></ol>
+        <ol id="bootlint">
+            <li data-lint='Dropdown toggle missing [aria-haspopup="true"]'></li>
+            <li data-lint='Dropdown toggle missing [aria-expanded="false"]'></li>
+            <li data-lint='Dropdown menu missing [role="menu"]'></li>
+        </ol>
     </body>
 </html>

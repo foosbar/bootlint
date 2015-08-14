@@ -1065,6 +1065,91 @@ var LocationIndex = _location.LocationIndex;
         });
     });
 
+    addLinter("EA001", function lintDropdownToggleAccessibility($, reporter) {
+        var dropdowns = $('[data-toggle=dropdown]');
+        dropdowns.each(function () {
+            if ($(this).attr('aria-haspopup') === undefined) {
+                reporter("Dropdown toggle missing [aria-haspopup=\"true\"]", $(this));
+            }
+            if ($(this).attr('aria-expanded') === undefined) {
+                reporter("Dropdown toggle missing [aria-expanded=\"false\"]", $(this));
+            }
+        });
+    });
+
+    addLinter("EA002", function lintMenuAccessibility($, reporter) {
+        var menus = $('.dropdown-menu');
+        menus.each(function () {
+            if ($(this).attr('role') === undefined) {
+                reporter("Dropdown menu missing [role=\"menu\"]", $(this));
+            }
+
+            if ($(this).attr('aria-labelledby') === undefined && $(this).attr('aria-label') === undefined) {
+                reporter("Dropdown menu missing both [aria-label=\"Label for menu\"] and [aria-labelledby=\"menuId\"]", $(this));
+            }
+
+            var menuitems = $(this).find('li');
+            menuitems.each(function () {
+
+                var role = $(this).attr('role');
+
+                if ($(this).hasClass('divider') && role !== 'separator') {
+                    reporter("Dropdown menu divider missing [role=\"separator\"]", $(this));
+
+                }
+                else if (role === undefined) {
+                    reporter("Dropdown menu item missing [role=\"presentation\"]", $(this));
+                }
+            });
+
+        });
+    });
+
+    addLinter("EA003", function lintToolbarAccessibility($, reporter) {
+        var toolbars = $('.btn-toolbar');
+        toolbars.each(function () {
+            if ($(this).attr('role') === undefined) {
+                reporter("Toolbar missing [role=\"toolbar\"]", $(this));
+            }
+
+            if ($(this).attr('aria-label') === undefined) {
+                reporter("Toolbar missing [aria-label=\"Description of toolbar here\"]", $(this));
+            }
+        });
+    });
+
+    addLinter("EA004", function lintButtonGroupAccessibility($, reporter) {
+        var buttonGroups = $('.btn-group');
+        buttonGroups.each(function () {
+            if ($(this).attr('role') === undefined) {
+                reporter("Button group missing [role=\"group\"]", $(this));
+            }
+
+            if ($(this).attr('aria-label') === undefined) {
+                reporter("Button group missing [aria-label=\"Description of button group here\"]", $(this));
+            }
+        });
+    });
+
+    addLinter("EA005", function lintNavigationAccessibility($, reporter) {
+        var navs = $('.nav');
+        navs.each(function () {
+
+            var parent = $(this).parent();
+
+            if (parent[0].tagName !== 'nav' && parent.attr('role') === undefined) {
+                reporter("Nav parent missing [role=\"navigation\"]", $(this));
+            }
+
+            var menuitems = $(this).find('li');
+            menuitems.each(function () {
+                if ($(this).attr('role') === undefined) {
+                    reporter("Nav item missing [role=\"presentation\"]", $(this));
+                }
+            });
+        });
+    });
+
     exports._lint = function ($, reporter, disabledIdList, html) {
         var locationIndex = IN_NODE_JS ? new LocationIndex(html) : null;
         var reporterWrapper = IN_NODE_JS ? function (problem) {

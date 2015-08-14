@@ -20,23 +20,23 @@
         <div class="input-group">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default" tabindex="-1">Action</button>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1" aria-haspopup="true" aria-expanded="false">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                <ul class="dropdown-menu" role="menu" aria-label="First dropdown menu">
+                    <li role="presentation"><a href="#">Action</a></li>
+                    <li role="presentation"><a href="#">Another action</a></li>
+                    <li role="presentation"><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation"><a href="#">Separated link</a></li>
                 </ul>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                    <li role="presentation"><a href="#">Action</a></li>
+                    <li role="presentation"><a href="#">Another action</a></li>
+                    <li role="presentation"><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation"><a href="#">Separated link</a></li>
                 </ul>
             </div>
             <input type="text" class="form-control" />

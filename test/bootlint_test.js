@@ -885,5 +885,15 @@ exports.bootlint = {
             'should complain about a .navbar-btn within the .navbar-nav class.'
         );
         test.done();
+    },
+    '.btn dropdown without aria attributes': function (test) {
+        test.expect(1);
+        test.deepEqual(lintHtml(utf8Fixture('buttons/btn-toggle-noaria.html')),
+            ['Dropdown toggle missing [aria-haspopup="true"]',
+                'Dropdown toggle missing [aria-expanded="false"]',
+                'Dropdown menu missing [role="menu"]'],
+            'should complain about a .dropdown-toggle missing accessibility attributes'
+        );
+        test.done();
     }
 };
