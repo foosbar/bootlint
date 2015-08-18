@@ -1065,6 +1065,25 @@ var LocationIndex = _location.LocationIndex;
         });
     });
 
+    function validateAriaLabel($, reporter, elements) {
+        $(elements).each(function () {
+            var attribute = $(this).attr('aria-label') || $(this).attr('aria-labelledby');
+            if (attribute === undefined) {
+                reporter('' + ' missing [aria-label="some descriptive label"] and [aria-labelledby="id_to_label"]', $(this));
+            }
+        });
+    }
+
+    function validateRole($, reporter, elements, role) {
+        $(elements).each(function () {
+            // var element = $(this);
+            var attribute = $(this).attr('role');
+            if (attribute === undefined || attribute !== role) {
+                reporter('' + ' missing [aria-label="some descriptive label"] and [aria-labelledby="id_to_label"]', $(this));
+            }
+        });
+    }
+
     addLinter("EA001", function lintDropdownToggleAccessibility($, reporter) {
         var dropdowns = $('[data-toggle=dropdown]');
         dropdowns.each(function () {
@@ -1079,17 +1098,12 @@ var LocationIndex = _location.LocationIndex;
 
     addLinter("EA002", function lintMenuAccessibility($, reporter) {
         var menus = $('.dropdown-menu');
+
+        validateRole($, reporter, menus, 'menu');
+        validateAriaLabel($, reporter, menus);
+
         menus.each(function () {
-            if ($(this).attr('role') === undefined) {
-                reporter("Dropdown menu missing [role=\"menu\"]", $(this));
-            }
-
-            if ($(this).attr('aria-labelledby') === undefined && $(this).attr('aria-label') === undefined) {
-                reporter("Dropdown menu missing both [aria-label=\"Label for menu\"] and [aria-labelledby=\"menuId\"]", $(this));
-            }
-
-            var menuitems = $(this).find('li');
-            menuitems.each(function () {
+            $(this).find('li').each(function () {
 
                 var role = $(this).attr('role');
 
